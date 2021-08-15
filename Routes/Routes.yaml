@@ -1,0 +1,182 @@
+swagger: "2.0"
+info:
+  description: "Backend Routes documentaion for p-fy"
+  version: "1.0.0"
+  title: "P-fy Backend"
+  termsOfService: "p-fy.com/terms"
+  contact:
+    email: "darshan.somashekar1@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "pfy.com"
+basePath: "/api"
+tags:
+  - name: "auth"
+    description: "Auth"
+  - name: "user"
+    description: "User"
+schemes:
+  - "https"
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - "auth"
+      summary: "Sign Up"
+      description: ""
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User Object"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/UserResponse"
+
+        "401":
+          description: "Error Message"
+
+  /auth/signin:
+    post:
+      tags:
+        - "auth"
+      summary: "Sign In"
+      description: ""
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User Object"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/UserResponse"
+        "401":
+          description: "Error Message"
+
+  /users/userId:
+    get:
+      tags:
+        - "user"
+      summary: "Get User Details"
+      description: ""
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/UserProfileResponse"
+        "401":
+          description: "Error Message"
+    put:
+      tags:
+        - "user"
+      summary: "Edit User"
+      description: ""
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User Object"
+          required: true
+          schema:
+            $ref: "#/definitions/UserProfile"
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/UserProfileResponse"
+        "401":
+          description: "Error Message"
+    delete:
+      tags:
+        - "user"
+      summary: "Delete user details/account"
+      description: ""
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/UserProfileResponse"
+        "401":
+          description: "Error Message"
+
+definitions:
+  User:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+  UserResponse:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      username:
+        type: "string"
+      token:
+        type: "string"
+  UserProfile:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      profileImage:
+        type: "string"
+  UserProfileResponse:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      profileImage:
+        type: "string"
+      createdOn:
+        type: "string"
+        format: "date"
+      updatedOn:
+        type: "string"
+        format: "date"
