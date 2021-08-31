@@ -9,7 +9,7 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "pfy.com"
+host: "localhost:8081"
 basePath: "/api"
 tags:
   - name: "auth"
@@ -17,7 +17,13 @@ tags:
   - name: "user"
     description: "User"
 schemes:
-  - "https"
+  - "http"
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+
 paths:
   /auth/signup:
     post:
@@ -87,6 +93,8 @@ paths:
             $ref: "#/definitions/UserProfileResponse"
         "401":
           description: "Error Message"
+      security:
+        - Bearer: []
     put:
       tags:
         - "user"
@@ -110,7 +118,12 @@ paths:
             $ref: "#/definitions/UserProfileResponse"
         "401":
           description: "Error Message"
+      security:
+        - Bearer: []
     delete:
+      security:
+        - Bearer: []
+
       tags:
         - "user"
       summary: "Delete user details/account"
@@ -131,7 +144,7 @@ definitions:
   User:
     type: "object"
     properties:
-      email:
+      username:
         type: "string"
       password:
         type: "string"
